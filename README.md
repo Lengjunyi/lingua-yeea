@@ -90,3 +90,11 @@ class 瓜:
 		ans = self.甜度 / 2
 		self.甜度 = ans
 ```
+
+
+# 开发配置
+
+## 1. 安装Antlr环境
+```
+pip install antlr4-tools  
+```
