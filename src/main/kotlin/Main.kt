@@ -1,20 +1,27 @@
-import main.antlr4.ChatLexer
-import main.antlr4.ChatParser
-import org.antlr.v4.runtime.CharStream
+import main.antlr4.ExprLexer
+import main.antlr4.ExprParser
+import org.antlr.runtime.tree.ParseTree
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
-import org.antlr.v4.runtime.TokenStream
-import java.io.InputStream
+import java.io.FileInputStream
+
 
 fun main(args: Array<String>) {
-    val lexer = ChatLexer(CharStreams.fromFileName("src/main/kotlin/test.txt"));
-    println(lexer.allTokens)
-    val parser = ChatParser(CommonTokenStream(lexer));
-//    println(parser.name())
+    val inputStream = FileInputStream("src/main/kotlin/test.txt")
+    val input = CharStreams.fromStream(inputStream)
+    val lexer = ExprLexer(input)
+    val tokens = CommonTokenStream(lexer)
+    val parser = ExprParser(tokens)
+    val tree = parser.prog()
 
-    println("Hello World!")
-
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+//    parser.buildParseTree
+//    println(parser.prog())
+    val visitor = ExpVisitor();
+    visitor.visit(tree)
+//
+//    println("Hello World!")
+//
+//    // Try adding program arguments via Run/Debug configuration.
+//    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
+//    println("Program arguments: ${args.joinToString()}")
 }
